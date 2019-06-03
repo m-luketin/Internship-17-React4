@@ -43,7 +43,7 @@ const fieldTerrains = [
 
 const diceRolls = [1, 2, 3, 4, 5, 6];
 
-const players = ["Red", "Blue", "Green", "Yellow"];
+const players = ["Red", "Navy ", "Magenta ", "Gold"];
 
 let tmpCrossroads = [
   [],
@@ -74,10 +74,40 @@ for (let i = 0; i < 19; i++) {
 }
 const crossroads = tmpCrossroads;
 
+let tmpRoads = [
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  []
+];
+
+for (let i = 0; i < 19; i++) {
+  for (let j = 0; j < 6; j++) {
+    tmpRoads[i].push("black");
+  }
+}
+const roads = tmpRoads;
+
 export const consts = {
   fieldNumbers,
   fieldTerrains,
   diceRolls,
   players,
-  crossroads
+  crossroads,
+  roads
 };

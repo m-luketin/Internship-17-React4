@@ -11,17 +11,17 @@ function Shuffle(array) {
 function TerrainToColor(terrain) {
   switch (terrain) {
     case "Hills":
-      return "#704721";
+      return "Sienna";
     case "Forest":
-      return "#064f0c";
+      return "ForestGreen";
     case "Desert":
-      return "#f49242";
+      return "SandyBrown";
     case "Mountains":
-      return "#51504e";
+      return "DimGrey";
     case "Pasture":
-      return "#02ce12";
+      return "LawnGreen";
     case "Fields":
-      return "#e58b04";
+      return "GoldenRod";
     default:
       break;
   }

@@ -1,5 +1,6 @@
 import { utils } from "../../utils";
 import { consts } from "../../constants";
+import Player from "../../components/Player";
 
 // action types
 const HANDLE_ROAD = "HANDLE_ROAD";
@@ -11,25 +12,37 @@ let numbers = utils.AssignNumbers(fields, utils.Shuffle(consts.fieldNumbers));
 const initialState = {
   fieldTerrains: fields,
   fieldNumbers: numbers,
-  coloredCrossroads: consts.crossroads
+  coloredCrossroads: consts.crossroads,
+  coloredRoads: consts.roads
 };
 
 // action creators
 export const handleCrossroad = (
   fieldNumber,
-  crossroadNumber
+  crossroadNumber,
+  coloredCrossroads,
+  player
 ) => dispatchEvent => {
+  coloredCrossroads[fieldNumber][crossroadNumber] = consts.players[player];
   dispatchEvent({
     type: HANDLE_CROSSROAD,
-    payload: { fieldNumber, crossroadNumber }
+    payload: { coloredCrossroads }
   });
 };
 
-export const handleRoad = () => dispatchEvent => {
+export const handleRoad = (
+  fieldNumber,
+  roadNumber,
+  coloredRoads,
+  player
+) => dispatchEvent => {
+  console.log(fieldNumber, roadNumber, coloredRoads);
+  coloredRoads[fieldNumber][roadNumber] = consts.players[player];
   dispatchEvent({
     type: HANDLE_ROAD,
-    payload: {}
+    payload: { coloredRoads }
   });
+  
 };
 
 // reducer
@@ -37,30 +50,14 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case HANDLE_ROAD:
       return {
-        ...state
+        ...state,
+        coloredRoads: action.payload.coloredRoads
       };
     case HANDLE_CROSSROAD:
-      return Object.assign({}, state, {
-        coloredCrossroads: [
-          ...state.coloredCrossroads.slice(0, action.payload.fieldNumber - 1),
-          [
-            ...state.coloredCrossroads[action.payload.fieldNumber].slice(
-              0,
-              action.payload.crossroadNumber - 1
-            ),
-            "red",
-            ...state.coloredCrossroads[action.payload.fieldNumber].slice(
-              action.payload.crossroadNumber + 1,
-              action.payload.coloredCrossroads[action.payload.fieldNumber]
-                .length - 1
-            )
-          ],
-          ...state.coloredCrossroads.slice(
-            action.payload.fieldNumber + 1,
-            state.coloredCrossroads.length - 1
-          )
-        ]
-      })
+      return {
+        ...state,
+        coloredCrossroads: action.payload.coloredCrossroads
+      };
     default:
       return { ...state };
   }
