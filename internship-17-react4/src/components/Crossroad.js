@@ -12,7 +12,10 @@ const Crossroad = props => {
           props.fieldNumber,
           props.crossroadNumber,
           props.coloredCrossroads,
-          props.player.player
+          props.player.player,
+          props.player.setup,
+          props.player.resources,
+          props.player.settlements
         )
       }
     />

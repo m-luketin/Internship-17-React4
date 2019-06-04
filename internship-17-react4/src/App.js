@@ -6,6 +6,7 @@ import Board from "./components/Board";
 import Diceroll from "./components/Diceroll";
 import Player from "./components/Player";
 import Resources from "./components/Resources";
+import Signup from "./components/Signup";
 
 class App extends Component {
   render() {
@@ -14,9 +15,10 @@ class App extends Component {
         <Provider store={store}>
           <BrowserRouter>
             <Switch>
+              <Route exact path="/" render={() => <Signup />} />
               <Route
                 exact
-                path="/"
+                path="/game"
                 render={() => (
                   <main>
                     <Player />

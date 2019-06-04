@@ -6,16 +6,16 @@ class Diceroll extends Component {
     return (
       <div className="diceroll">
         <span>Roll: </span>
-        {this.props.state.firstDice} + {this.props.state.secondDice}
-        <span> = </span>
-        {this.props.state.firstDice + this.props.state.secondDice}
+        <b>{this.props.state.diceroll}</b>
+        <br />
       </div>
-    );
+    ); 
   }
 }
 
 const mapStateToProps = state => ({
-  state: state.diceroll
+  state: state.player
 });
+
 
 export default connect(mapStateToProps)(Diceroll);

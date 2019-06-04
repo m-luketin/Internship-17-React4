@@ -1,3 +1,6 @@
+import React from "react";
+import { Route } from "react-router-dom";
+
 function Shuffle(array) {
   for (let i = 0; i < array.length; i++) {
     let randomNumber = parseInt(Math.random() * 100) % array.length;

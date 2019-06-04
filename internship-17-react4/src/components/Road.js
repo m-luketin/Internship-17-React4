@@ -12,7 +12,10 @@ const Road = props => {
           props.fieldNumber,
           props.roadNumber,
           props.coloredRoads,
-          props.player.player
+          props.player.player,
+          props.player.setup,
+          props.player.resources,
+          props.player.roads
         )
       }
     />

@@ -103,11 +103,14 @@ for (let i = 0; i < 19; i++) {
 }
 const roads = tmpRoads;
 
+const resources = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]];
+
 export const consts = {
   fieldNumbers,
   fieldTerrains,
   diceRolls,
   players,
   crossroads,
-  roads
+  roads,
+  resources
 };
