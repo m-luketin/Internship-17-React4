@@ -1,40 +1,59 @@
 import React from "react";
-import { utils } from "../utils";
+import {handlePlayerNames, randomizePlayers} from "../redux/modules/player";
 import { Link } from "react-router-dom";
+import {connect} from "react-redux";
 
-const Signup = () => {
+const Signup = (props) => {
   return (
     <div className="player-signup">
       <h2>Enter players:</h2>
         <input
           type="text"
           class="player-one"
+          id="player-one"
           required
-          value="Player 1"
+          placeholder="Player 1"
+          onKeyUp={() => props.handlePlayerNames(document, 0, props.playerNameState)}
         />
         <input
           type="text"
           class="player-two"
+          id="player-two"
           required
-          value="Player 2"
+          placeholder="Player 2"
+          onKeyUp={() => props.handlePlayerNames(document, 1, props.playerNameState)}
         />
         <input
           type="text"
           class="player-three"
+          id="player-three"
           required
-          value="Player 3"
-        />
+          placeholder="Player 3"
+          onKeyUp={() => props.handlePlayerNames(document, 2, props.playerNameState)}
+          />
         <input
           type="text"
           class="player-four"
+          id="player-four"
           required
-          value="Player 4"
-        />
-        <Link to="/game" className="start-button">
+          placeholder="Player 4"
+          onKeyUp={() => props.handlePlayerNames(document, 3, props.playerNameState)}
+          />
+          <span className="signup-randomised">(colors will be randomised)</span>
+        <Link to="/game" className="start-button" onClick={() => props.randomizePlayers(props.playerNameState)}>
           START
         </Link>
     </div>
   );
 };
 
-export default Signup;
+const mapStateToProps = state => ({
+    playerNameState: state.player
+  });
+
+const mapDispatchToProps = ({
+    handlePlayerNames,
+    randomizePlayers
+})
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Signup);

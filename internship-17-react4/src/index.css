@@ -207,7 +207,8 @@ main {
   height: 500px;
   align-items: center;
   justify-content: space-around;
-  margin-top: 100px;
+  background-color: #999;
+  padding: 100px 0px;
 }
 
 .player-signup h2 {
@@ -222,6 +223,16 @@ main {
   width: 400px;
   height: 50px;
   font-size: 40px;
+  color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.player-one::placeholder,
+.player-two::placeholder,
+.player-three::placeholder,
+.player-four::placeholder {
+  opacity: 1;
   color: white;
 }
 

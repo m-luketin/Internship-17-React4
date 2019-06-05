@@ -15,10 +15,10 @@ const Player = props => {
       >
         END TURN
       </button>
-        <br />
+      <br />
       Current player is{" "}
       <span style={{ color: consts.players[props.playerState.player] }}>
-        {consts.players[props.playerState.player]}
+        {props.playerState.playerNames[props.playerState.player]} 
       </span>
     </div>
   );
