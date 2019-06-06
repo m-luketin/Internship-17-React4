@@ -149,41 +149,60 @@ main {
 }
 
 .player {
-  margin: 50px 20px;
+  margin: 50px 20px 125px 20px;
   font-size: 40px;
   font-weight: 700;
 }
 
 .diceroll {
-  margin: 100px 20px;
-  font-size: 25px;
+  margin-top: 33px;
+  margin-left: 20px;
+  font-size: 50px;
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+}
+
+.roll-number {
+  background-color: white;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  padding: 5px;
+  margin-top: -5px;
+  border: 2px solid black;
 }
 
 .resources {
   display: flex;
   flex-direction: column;
-  margin: 50px 20px;
-  font-size: 25px;
+  margin: 40px 20px;
+  font-size: 32px;
   text-align: right;
   width: 155px;
+  font-weight: 600;
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 5px;
+  color: white;
 }
 
 .board {
-  margin-top: -575px;
-  margin-bottom: 150px;
-  margin-left: 700px;
+  margin-top: -500px;
+  margin-bottom: 75px;
 }
 
 .next-turn {
+  position: absolute;
   width: 200px;
   height: 50px;
-  font-size: 30px;
-  border: transparent;
+  font-size: 30px;;
   border-radius: 15px;
-  margin-bottom: 25px;
-  margin-left: 90px;
+  margin-top: 25px;
   border: 3px solid black;
   font-weight: 600;
+  z-index: 9999;
+  color: white;
 }
 
 .start-button {
@@ -250,4 +269,56 @@ main {
 
 .player-four {
   background-color: gold;
+}
+
+.legend {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  margin-left: 1100px;
+  margin-top: 70px;
+  font-weight: 600;
+  height: 250px;
+  width: 290px;
+  justify-content: space-between;
+  font-size: 20px;
+}
+
+.legend-text {
+  width: 100px;
+  text-align: center;
+}
+
+.legend-build {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+  align-items: flex-end;
+  width: 220px;
+}
+
+.build-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 107.5px;
+}
+
+.legend-secondary {
+  margin-top: 20px;
+  margin-left: -30px;
+  padding: 20px;
+  border: 2px solid black;
+  width: 230px;
+  height: 250px;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.legend-primary {
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 5px;
+  width: 270px;
+  margin-left: -30px;
 }

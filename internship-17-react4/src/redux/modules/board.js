@@ -28,7 +28,7 @@ export const handleCrossroad = (
 ) => dispatchEvent => {
   if (
     (resources[player][0] >= 2 && resources[player][1] >= 2) ||
-    (setup && settlements[player] < 2)
+    (setup[0] && settlements[player] < 1) || (!setup[0] && setup[1] && settlements[player] < 2)
   ) {
     //resource req not checked
     coloredCrossroads[fieldNumber][crossroadNumber] = consts.players[player];
@@ -51,7 +51,7 @@ export const handleRoad = (
 ) => dispatchEvent => {
   if (
     (resources[player][0] >= 2 && resources[player][1] >= 2) ||
-    (setup && roads[player] < 2)
+    (setup[0] && roads[player] < 1) || (!setup[0] && setup[1] && roads[player] < 2)
   ) {
     //resource req not checked
     coloredRoads[fieldNumber][roadNumber] = consts.players[player];

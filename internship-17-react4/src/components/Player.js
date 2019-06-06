@@ -6,6 +6,11 @@ import { consts } from "../constants";
 const Player = props => {
   return (
     <div className="player">
+      Current player is{" "}
+      <span style={{ color: consts.players[props.playerState.player] }}>
+        {props.playerState.playerNames[props.playerState.player]}
+      </span>
+      <br />
       <button
         className="next-turn"
         onClick={() =>
@@ -15,11 +20,6 @@ const Player = props => {
       >
         END TURN
       </button>
-      <br />
-      Current player is{" "}
-      <span style={{ color: consts.players[props.playerState.player] }}>
-        {props.playerState.playerNames[props.playerState.player]} 
-      </span>
     </div>
   );
 };

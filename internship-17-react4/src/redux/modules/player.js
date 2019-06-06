@@ -14,20 +14,27 @@ const initialState = {
   settlements: [0, 0, 0, 0],
   cities: [0, 0, 0, 0],
   roads: [0, 0, 0, 0],
-  setup: true,
+  setup: [true, true],
   resources: consts.resources
 };
 
 // action creators
 export const handlePlayers = (player, setup) => dispatchEvent => {
-  if (player === 3) setup = false;
+  console.log("brrra");
+  if (player === 0 && !setup[0]) setup[1] = false;
 
   let diceroll;
-  setup
+  setup[1]
     ? (diceroll = 0)
     : (diceroll = (Math.floor(Math.random() * 100) % 11) + 2);
 
-  player = (player + 1) % 4;
+  if (!setup[0] && setup[1]) player = (player - 1) % 4;
+  else player = (player + 1) % 4;
+
+  if (player === 3) {
+    setup[0] = false;
+  }
+
   dispatchEvent({
     type: SWITCH_PLAYERS,
     payload: { player, diceroll, setup }
@@ -43,15 +50,21 @@ export const handlePlayerNames = (
   switch (index) {
     case 0:
       playerNames[0] = documentToRead.getElementById("player-one").value;
+      if (playerNames[0] === "") playerNames[0] = "Player1";
       break;
     case 1:
       playerNames[1] = documentToRead.getElementById("player-two").value;
+      if (playerNames[1] === "") playerNames[1] = "Player1";
       break;
     case 2:
       playerNames[2] = documentToRead.getElementById("player-three").value;
+      if (playerNames[2] === "") playerNames[2] = "Player1";
       break;
     case 3:
       playerNames[3] = documentToRead.getElementById("player-four").value;
+      if (playerNames[3] === "") playerNames[3] = "Player1";
+      break;
+    default:
       break;
   }
   dispatchEvent({
@@ -60,11 +73,11 @@ export const handlePlayerNames = (
   });
 };
 
-export const randomizePlayers = (playerState) => dispatchEvent => {
+export const randomizePlayers = playerState => dispatchEvent => {
   let newPlayerState = utils.Shuffle(playerState.playerNames);
   dispatchEvent({
     type: RANDOMIZE_PLAYERS,
-    payload: {newPlayerState}
+    payload: { newPlayerState }
   });
 };
 

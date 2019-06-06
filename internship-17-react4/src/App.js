@@ -7,6 +7,7 @@ import Diceroll from "./components/Diceroll";
 import Player from "./components/Player";
 import Resources from "./components/Resources";
 import Signup from "./components/Signup";
+import Legend from "./components/Legend";
 
 class App extends Component {
   render() {
@@ -22,13 +23,14 @@ class App extends Component {
                 render={() => (
                   <main>
                     <Player />
-                    <Diceroll />
                     <Resources />
+                    <Diceroll />
                     <Board />
+                    <Legend />
                   </main>
                 )}
               />
-              <Redirect />
+              <Redirect to="/" />
             </Switch>
           </BrowserRouter>
         </Provider>

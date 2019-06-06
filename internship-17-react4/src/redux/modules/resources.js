@@ -1,5 +1,6 @@
 
 // action types
+const GIVE_RESOURCES = "GIVE_RESOURCES";
 
 // initial state
 const initialState = {
