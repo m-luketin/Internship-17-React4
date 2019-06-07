@@ -14,7 +14,14 @@ const Player = props => {
       <button
         className="next-turn"
         onClick={() =>
-          props.handlePlayers(props.playerState.player, props.playerState.setup)
+          props.handlePlayers(
+            props.playerState.player,
+            props.playerState.setup,
+            props.resourceState.resources,
+            props.boardState.fieldTerrains,
+            props.boardState.fieldNumbers,
+            props.boardState.coloredCrossroads
+          )
         }
         style={{ backgroundColor: consts.players[props.playerState.player] }}
       >
@@ -26,7 +33,9 @@ const Player = props => {
 
 const mapStateToProps = state => ({
   playerState: state.player,
-  setupState: state.setup
+  setupState: state.setup,
+  boardState: state.board,
+  resourceState: state.resources
 });
 
 const mapDispatchToProps = {

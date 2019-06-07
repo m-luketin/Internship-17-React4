@@ -1,14 +1,9 @@
-
+import {consts} from "../../constants";
 // action types
-const GIVE_RESOURCES = "GIVE_RESOURCES";
 
 // initial state
 const initialState = {
-  lumber: 0,
-  grain: 0,
-  ore: 0,
-  wool: 0,
-  brick: 0
+  resources: consts.resources
 };
 
 // action creators

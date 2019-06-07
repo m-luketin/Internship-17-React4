@@ -27,16 +27,24 @@ export const handleCrossroad = (
   settlements
 ) => dispatchEvent => {
   if (
-    (resources[player][0] >= 2 && resources[player][1] >= 2) ||
-    (setup[0] && settlements[player] < 1) || (!setup[0] && setup[1] && settlements[player] < 2)
+    (resources[player][0] >= 1 && resources[player][4] >= 1) ||
+    (setup[0] && settlements[player] < 1) ||
+    (!setup[0] && setup[1] && settlements[player] < 2)
   ) {
     //resource req not checked
     coloredCrossroads[fieldNumber][crossroadNumber] = consts.players[player];
+
     settlements[player]++;
+
+    if(!setup[0] && !setup[1])
+    {
+      resources[player][0]--;
+      resources[player][4]--;
+    }
   }
   dispatchEvent({
     type: HANDLE_CROSSROAD,
-    payload: { coloredCrossroads, settlements }
+    payload: { coloredCrossroads, settlements, resources }
   });
 };
 
@@ -51,7 +59,8 @@ export const handleRoad = (
 ) => dispatchEvent => {
   if (
     (resources[player][0] >= 2 && resources[player][1] >= 2) ||
-    (setup[0] && roads[player] < 1) || (!setup[0] && setup[1] && roads[player] < 2)
+    (setup[0] && roads[player] < 1) ||
+    (!setup[0] && setup[1] && roads[player] < 2)
   ) {
     //resource req not checked
     coloredRoads[fieldNumber][roadNumber] = consts.players[player];
@@ -83,7 +92,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         coloredCrossroads: action.payload.coloredCrossroads,
-        settlements: action.payload.settlements
+        settlements: action.payload.settlements,
+        resources: action.payload.resources
       };
     case HANDLE_SETUP:
       return {

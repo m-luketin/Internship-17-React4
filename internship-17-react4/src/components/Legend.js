@@ -17,19 +17,19 @@ const Legend = () => {
           <span className="legend-text"> - Forest </span>
           <span>(Lumber)</span>
         </div>
-        <div>
-          <span
-            style={{
-              backgroundColor: "Sienna",
-              color: "Sienna",
-              border: "1.75px solid black"
-            }}
-          >
-            __
-          </span>
-          <span className="legend-text"> - Hills </span>
-          <span>(Brick)</span>
-        </div>
+              <div>
+                <span
+                  style={{
+                    backgroundColor: "GoldenRod",
+                    color: "GoldenRod",
+                    border: "1.75px solid black"
+                  }}
+                >
+                  __
+                </span>
+                <span className="legend-text"> - Fields </span>
+                <span>(Grain)</span>
+              </div>
         <div>
           <span
             style={{
@@ -56,19 +56,19 @@ const Legend = () => {
           <span className="legend-text"> - Pasture </span>
           <span>(Wool)</span>
         </div>
-        <div>
-          <span
-            style={{
-              backgroundColor: "GoldenRod",
-              color: "GoldenRod",
-              border: "1.75px solid black"
-            }}
-          >
-            __
-          </span>
-          <span className="legend-text"> - Fields </span>
-          <span>(Grain)</span>
-        </div>
+              <div>
+                <span
+                  style={{
+                    backgroundColor: "Sienna",
+                    color: "Sienna",
+                    border: "1.75px solid black"
+                  }}
+                >
+                  __
+                </span>
+                <span className="legend-text"> - Hills </span>
+                <span>(Brick)</span>
+              </div>
         <div>
           <span
             style={{

@@ -1,3 +1,5 @@
+import { consts } from "./constants";
+
 function Shuffle(array) {
   for (let i = 0; i < array.length; i++) {
     let randomNumber = parseInt(Math.random() * 100) % array.length;
@@ -69,33 +71,48 @@ function FindRoadNeighbour(fieldCoordinates, roadCoordinates) {
 
 function FindCrossroadNeighbours(fieldCoordinates, crossroadCoordinates) {
   let fixedIndex = -1;
-  let neighbourCoordinates = [[], []];
-  crossroadCoordinates.forEach(element => {
-    if (Math.abs(element) === 1) {
-      fixedIndex = crossroadCoordinates.IndexOf(e => e === element);
+  let neighbourCoordinates = [[], [], []];
+
+  for (let i = 0; i < 3; i++) {
+    if (Math.abs(crossroadCoordinates[i]) === 1) {
+      fixedIndex = i;
     }
-  });
+  }
   if (fixedIndex === -1) return null;
 
   for (let i = 0; i < 2; i++) {
-    for (let j = 0; j < 3; i++) {
+    for (let j = 0; j < 3; j++) {
       neighbourCoordinates[i][j] =
         fieldCoordinates[j] + crossroadCoordinates[j];
     }
   }
-  let toAdd = 1;
 
+  let otherIndex = -1;
   for (let i = 0; i < 2; i++) {
-    for (let j = 0; j < 3; i++) {
-      if (j !== fixedIndex) {
-        neighbourCoordinates[i][j] += toAdd;
-        toAdd *= -1;
+    for (let j = 0; j < 3; j++) {
+      if (j !== fixedIndex && j !== otherIndex) {
+        neighbourCoordinates[i][j] -= crossroadCoordinates[fixedIndex];
+        otherIndex = j;
+        break;
       }
     }
-    toAdd *= -1;
+  }
+  neighbourCoordinates[2] = fieldCoordinates;
+
+  let neighboursIndexes = [];
+
+  for (let j = 0; j < 19; j++) {
+    for (let i = 0; i < 3; i++) {
+      if (
+        consts.fieldCoordinates[j][0] === neighbourCoordinates[i][0] &&
+        consts.fieldCoordinates[j][1] === neighbourCoordinates[i][1] &&
+        consts.fieldCoordinates[j][2] === neighbourCoordinates[i][2]
+      )
+        neighboursIndexes.push(j);
+    }
   }
 
-  return neighbourCoordinates;
+  return neighboursIndexes;
 }
 
 export const utils = {

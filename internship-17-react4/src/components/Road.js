@@ -14,7 +14,7 @@ const Road = props => {
           props.coloredRoads,
           props.player.player,
           props.player.setup,
-          props.player.resources,
+          props.resources.resources,
           props.player.roads
         )
       }
@@ -24,7 +24,8 @@ const Road = props => {
 
 const mapStateToProps = state => ({
   coloredRoads: state.board.coloredRoads,
-  player: state.player
+  player: state.player,
+  resources: state.resources
 });
 
 const mapDispatchToProps = {

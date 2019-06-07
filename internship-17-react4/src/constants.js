@@ -110,6 +110,37 @@ const resources = [
   [0, 0, 0, 0, 0]
 ];
 
+const fieldCoordinates = [
+  [0, -2, 2],
+  [1, -2, 1],
+  [2, -2, 0],
+  [-1, -1, 2],
+  [0, -1, 1],
+  [1, -1, 0],
+  [2, -1, -1],
+  [-2, 0, 2],
+  [-1, 0, 1],
+  [0, 0, 0],
+  [1, 0, -1],
+  [2, 0, -2],
+  [-2, 1, 1],
+  [-1, 1, 0],
+  [0, 1, -1],
+  [1, 1, -2],
+  [-2, 2, 0],
+  [-1, 2, -1],
+  [0, 2, -2]
+];
+
+const crossroadCoordinates = [
+  [0, -1, 0],
+    [1, 0, 0],
+    [0, 0, -1],
+    [0, 1, 0],
+    [-1, 0, 0],
+    [0, 0, 1]
+];
+
 export const consts = {
   fieldNumbers,
   fieldTerrains,
@@ -117,5 +148,7 @@ export const consts = {
   players,
   crossroads,
   roads,
-  resources
+  resources,
+  fieldCoordinates,
+  crossroadCoordinates
 };

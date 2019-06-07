@@ -14,8 +14,11 @@ const Crossroad = props => {
           props.coloredCrossroads,
           props.player.player,
           props.player.setup,
-          props.player.resources,
-          props.player.settlements
+          props.resources.resources,
+          props.player.settlements,
+          props.coordinates,
+          props.fieldCoordinates,
+          props.fields
         )
       }
     />
@@ -24,7 +27,9 @@ const Crossroad = props => {
 
 const mapStateToProps = state => ({
   coloredCrossroads: state.board.coloredCrossroads,
-  player: state.player
+  player: state.player,
+  fields: state.board.fieldTerrains,
+  resources: state.resources
 });
 
 const mapDispatchToProps = {

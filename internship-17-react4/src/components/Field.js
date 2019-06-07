@@ -15,6 +15,7 @@ const Field = props => {
         coordinates={[1, -1, 0]}
         color={props.fieldRoadColors[0]}
         fieldNumber={props.number}
+        fieldCoordinates={props.coordinates}
         roadNumber={0}
       />
       <Road
@@ -22,6 +23,7 @@ const Field = props => {
         coordinates={[1, 0, -1]}
         color={props.fieldRoadColors[1]}
         fieldNumber={props.number}
+        fieldCoordinates={props.coordinates}
         roadNumber={1}
       />
       <Road
@@ -29,6 +31,7 @@ const Field = props => {
         coordinates={[0, 1, -1]}
         color={props.fieldRoadColors[2]}
         fieldNumber={props.number}
+        fieldCoordinates={props.coordinates}
         roadNumber={2}
       />
       <Road
@@ -36,6 +39,7 @@ const Field = props => {
         coordinates={[-1, 1, 0]}
         color={props.fieldRoadColors[3]}
         fieldNumber={props.number}
+        fieldCoordinates={props.coordinates}
         roadNumber={3}
       />
       <Road
@@ -43,6 +47,7 @@ const Field = props => {
         coordinates={[-1, 0, 1]}
         color={props.fieldRoadColors[4]}
         fieldNumber={props.number}
+        fieldCoordinates={props.coordinates}
         roadNumber={4}
       />
       <Road
@@ -50,6 +55,7 @@ const Field = props => {
         coordinates={[0, -1, 1]}
         color={props.fieldRoadColors[5]}
         fieldNumber={props.number}
+        fieldCoordinates={props.coordinates}
         roadNumber={5}
       />
       <Crossroad
@@ -57,6 +63,8 @@ const Field = props => {
         coordinates={[0, -1, 0]}
         color={props.fieldCrossroadColors[0]}
         fieldNumber={props.number}
+        fieldCoordinates={props.coordinates}
+        fieldTerrain={props.terrain}
         crossroadNumber={0}
       />
       <Crossroad
@@ -64,6 +72,8 @@ const Field = props => {
         coordinates={[1, 0, 0]}
         color={props.fieldCrossroadColors[1]}
         fieldNumber={props.number}
+        fieldCoordinates={props.coordinates}
+        fieldTerrain={props.terrain}
         crossroadNumber={1}
       />
       <Crossroad
@@ -71,6 +81,8 @@ const Field = props => {
         coordinates={[0, 0, -1]}
         color={props.fieldCrossroadColors[2]}
         fieldNumber={props.number}
+        fieldCoordinates={props.coordinates}
+        fieldTerrain={props.terrain}
         crossroadNumber={2}
       />
       <Crossroad
@@ -78,6 +90,8 @@ const Field = props => {
         coordinates={[0, 1, 0]}
         color={props.fieldCrossroadColors[3]}
         fieldNumber={props.number}
+        fieldCoordinates={props.coordinates}
+        fieldTerrain={props.terrain}
         crossroadNumber={3}
       />
       <Crossroad
@@ -85,6 +99,8 @@ const Field = props => {
         coordinates={[-1, 0, 0]}
         color={props.fieldCrossroadColors[4]}
         fieldNumber={props.number}
+        fieldCoordinates={props.coordinates}
+        fieldTerrain={props.terrain}
         crossroadNumber={4}
       />
       <Crossroad
@@ -92,6 +108,8 @@ const Field = props => {
         coordinates={[0, 0, 1]}
         color={props.fieldCrossroadColors[5]}
         fieldNumber={props.number}
+        fieldCoordinates={props.coordinates}
+        fieldTerrain={props.terrain}
         crossroadNumber={5}
       />
       <Chit value={props.value} />
