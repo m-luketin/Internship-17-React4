@@ -42,6 +42,7 @@ export const handleCrossroad = (
       resources[player][1] -= 2;
     }
   }
+  let newCities = Object.assign({}, crossroadCities);
   let isMoveValid = true;
 
   if (crossroadNumber === 0 || crossroadNumber === 2 || crossroadNumber === 4) {
@@ -373,28 +374,29 @@ export const handleCrossroad = (
   }
 
   if (
-    coloredCrossroads[fieldNumber][crossroadNumber] !== "white" ||
-    !isMoveValid
-  )
-    return;
-
-  if (
-    (resources[player][0] >= 1 &&
-      resources[player][1] >= 1 &&
-      resources[player][3] >= 1 &&
-      resources[player][4] >= 1) ||
-    (setup[0] && settlements[player] < 1) ||
-    (!setup[0] && setup[1] && settlements[player] < 2)
+    coloredCrossroads[fieldNumber][crossroadNumber] === "white" ||
+    coloredCrossroads[fieldNumber][crossroadNumber] ===
+      consts.players[player] ||
+    isMoveValid
   ) {
-    coloredCrossroads[fieldNumber][crossroadNumber] = consts.players[player];
+    if (
+      (resources[player][0] >= 1 &&
+        resources[player][1] >= 1 &&
+        resources[player][3] >= 1 &&
+        resources[player][4] >= 1) ||
+      (setup[0] && settlements[player] < 1) ||
+      (!setup[0] && setup[1] && settlements[player] < 2)
+    ) {
+      coloredCrossroads[fieldNumber][crossroadNumber] = consts.players[player];
 
-    settlements[player]++;
+      settlements[player]++;
 
-    if (!setup[0] && !setup[1]) {
-      resources[player][0]--;
-      resources[player][1]--;
-      resources[player][3]--;
-      resources[player][4]--;
+      if (!setup[0] && !setup[1]) {
+        resources[player][0]--;
+        resources[player][1]--;
+        resources[player][3]--;
+        resources[player][4]--;
+      }
     }
   }
   dispatchEvent({
@@ -410,12 +412,83 @@ export const handleRoad = (
   player,
   setup,
   resources,
-  roads
+  roads,
+  coloredCrossroads
 ) => dispatchEvent => {
+  let isMoveValid = true;
+
   if (
-    (resources[player][0] >= 1 && resources[player][4] >= 1) ||
-    (setup[0] && roads[player] < 1) ||
-    (!setup[0] && setup[1] && roads[player] < 2)
+    coloredCrossroads[fieldNumber][roadNumber % 6] !== consts.players[player] &&
+    coloredCrossroads[fieldNumber][(roadNumber + 1) % 6] !==
+      consts.players[player]
+  ) {
+    isMoveValid = false;
+
+    switch (roadNumber) {
+      case 0:
+        if (
+          coloredCrossroads[
+            utils.FindRoadNeighbour(
+              consts.fieldCoordinates[fieldNumber],
+              consts.roadCoordinates[1]
+            )
+          ][5] === consts.players[player]
+        )
+          isMoveValid = true;
+        break;
+      case 1:
+        if (
+          coloredCrossroads[fieldNumber][1] === consts.players[player] ||
+          coloredCrossroads[fieldNumber][2] === consts.players[player]
+        )
+          isMoveValid = true;
+        break;
+      case 2:
+        if (
+          coloredCrossroads[fieldNumber][2] === consts.players[player] ||
+          coloredCrossroads[fieldNumber][3] === consts.players[player]
+        )
+          isMoveValid = true;
+        break;
+      case 3:
+        if (
+          coloredCrossroads[
+            utils.FindRoadNeighbour(
+              consts.fieldCoordinates[fieldNumber],
+              consts.roadCoordinates[2]
+            )
+          ][5] === consts.players[player]
+        )
+          isMoveValid = true;
+        break;
+      case 4:
+        if (
+          coloredCrossroads[
+            utils.FindRoadNeighbour(
+              consts.fieldCoordinates[fieldNumber],
+              consts.roadCoordinates[3]
+            )
+          ][0] === consts.players[player]
+        )
+          isMoveValid = true;
+        break;
+      case 5:
+        if (
+          coloredCrossroads[fieldNumber][2] === consts.players[player] ||
+          coloredCrossroads[fieldNumber][3] === consts.players[player]
+        )
+          isMoveValid = true;
+        break;
+      default:
+        break;
+    }
+  }
+
+  if (
+    ((resources[player][0] >= 1 && resources[player][4] >= 1) ||
+      (setup[0] && roads[player] < 1) ||
+      (!setup[0] && setup[1] && roads[player] < 2)) &&
+    isMoveValid
   ) {
     coloredRoads[fieldNumber][roadNumber] = consts.players[player];
 
@@ -430,8 +503,6 @@ export const handleRoad = (
     payload: { coloredRoads, roads }
   });
 };
-
-
 
 // reducer
 const reducer = (state = initialState, action) => {
