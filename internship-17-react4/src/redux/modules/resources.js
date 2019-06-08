@@ -1,4 +1,4 @@
-import {consts} from "../../constants";
+import { consts } from "../../constants";
 // action types
 
 // initial state

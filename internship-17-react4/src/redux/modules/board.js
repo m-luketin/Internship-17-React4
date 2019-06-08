@@ -414,14 +414,21 @@ export const handleRoad = (
 ) => dispatchEvent => {
   let hasNeighbourRoads = true;
 
-
   let neighbourIndex = utils.FindRoadNeighbour(
     consts.fieldCoordinates[fieldNumber],
     consts.roadCoordinates[roadNumber]
   );
 
-
-  if (neighbourIndex !== -1) {
+  console.log(neighbourIndex);
+  console.log(roadNumber);
+  if (neighbourIndex === -1) {
+    if (
+      coloredRoads[fieldNumber][(roadNumber - 1) % 6] !==
+        consts.players[player] &&
+      coloredRoads[fieldNumber][(roadNumber + 1) % 6] !== consts.players[player]
+    )
+      hasNeighbourRoads = false;
+  } else {
     switch (roadNumber) {
       case 0:
         if (
@@ -681,201 +688,201 @@ export const handleRoad = (
   }
 
   let hasNeighbourCrossroads = true;
-  if (
-    coloredCrossroads[fieldNumber][roadNumber] !== consts.players[player] &&
-    coloredCrossroads[fieldNumber][(roadNumber + 1) % 6] !==
-      consts.players[player]
-  )
-    hasNeighbourCrossroads = true;
 
-  switch (roadNumber) {
-    case 0:
-      if (
-        utils.FindRoadNeighbour(
-          consts.fieldCoordinates[neighbourIndex],
-          consts.roadCoordinates[2]
-        ) !== -1 &&
-        utils.FindRoadNeighbour(
-          consts.fieldCoordinates[neighbourIndex],
-          consts.roadCoordinates[4]
-        ) !== -1 &&
-        coloredCrossroads[fieldNumber][0] !== consts.players[player] &&
-        coloredCrossroads[fieldNumber][1] !== consts.players[player] &&
-        coloredCrossroads[neighbourIndex][3] !== consts.players[player] &&
-        coloredCrossroads[neighbourIndex][4] !== consts.players[player] &&
-        coloredCrossroads[
+  if (neighbourIndex === -1) {
+    if (
+      coloredCrossroads[fieldNumber][roadNumber] !== consts.players[player] &&
+      coloredCrossroads[fieldNumber][(roadNumber + 1) % 6] !==
+        consts.players[player]
+    )
+      hasNeighbourCrossroads = false;
+  } else {
+    switch (roadNumber) {
+      case 0:
+        if (
           utils.FindRoadNeighbour(
             consts.fieldCoordinates[neighbourIndex],
             consts.roadCoordinates[2]
-          )
-        ][5] !== consts.players[player] &&
-        coloredCrossroads[
+          ) !== -1 &&
           utils.FindRoadNeighbour(
             consts.fieldCoordinates[neighbourIndex],
             consts.roadCoordinates[4]
-          )
-        ][2] !== consts.players[player]
-      )
-      {
-        hasNeighbourCrossroads = false;
-      }
-      break;
-    case 1:
-      if (
-        utils.FindRoadNeighbour(
-          consts.fieldCoordinates[neighbourIndex],
-          consts.roadCoordinates[3]
-        ) !== -1 &&
-        utils.FindRoadNeighbour(
-          consts.fieldCoordinates[neighbourIndex],
-          consts.roadCoordinates[5]
-        ) !== -1 &&
-        coloredCrossroads[fieldNumber][1] !== consts.players[player] &&
-        coloredCrossroads[fieldNumber][2] !== consts.players[player] &&
-        coloredCrossroads[neighbourIndex][4] !== consts.players[player] &&
-        coloredCrossroads[neighbourIndex][5] !== consts.players[player] &&
-        coloredCrossroads[
+          ) !== -1 &&
+          coloredCrossroads[fieldNumber][0] !== consts.players[player] &&
+          coloredCrossroads[fieldNumber][1] !== consts.players[player] &&
+          coloredCrossroads[neighbourIndex][3] !== consts.players[player] &&
+          coloredCrossroads[neighbourIndex][4] !== consts.players[player] &&
+          coloredCrossroads[
+            utils.FindRoadNeighbour(
+              consts.fieldCoordinates[neighbourIndex],
+              consts.roadCoordinates[2]
+            )
+          ][5] !== consts.players[player] &&
+          coloredCrossroads[
+            utils.FindRoadNeighbour(
+              consts.fieldCoordinates[neighbourIndex],
+              consts.roadCoordinates[4]
+            )
+          ][2] !== consts.players[player]
+        ) {
+          hasNeighbourCrossroads = false;
+        }
+        break;
+      case 1:
+        if (
           utils.FindRoadNeighbour(
             consts.fieldCoordinates[neighbourIndex],
             consts.roadCoordinates[3]
-          )
-        ][0] !== consts.players[player] &&
-        coloredCrossroads[
+          ) !== -1 &&
           utils.FindRoadNeighbour(
             consts.fieldCoordinates[neighbourIndex],
             consts.roadCoordinates[5]
-          )
-        ][3] !== consts.players[player]
-      )
-        hasNeighbourCrossroads = false;
-      break;
-    case 2:
-      if (
-        utils.FindRoadNeighbour(
-          consts.fieldCoordinates[neighbourIndex],
-          consts.roadCoordinates[0]
-        ) !== -1 &&
-        utils.FindRoadNeighbour(
-          consts.fieldCoordinates[neighbourIndex],
-          consts.roadCoordinates[4]
-        ) !== -1 &&
-        coloredCrossroads[fieldNumber][2] !== consts.players[player] &&
-        coloredCrossroads[fieldNumber][3] !== consts.players[player] &&
-        coloredCrossroads[neighbourIndex][0] !== consts.players[player] &&
-        coloredCrossroads[neighbourIndex][5] !== consts.players[player] &&
-        coloredCrossroads[
+          ) !== -1 &&
+          coloredCrossroads[fieldNumber][1] !== consts.players[player] &&
+          coloredCrossroads[fieldNumber][2] !== consts.players[player] &&
+          coloredCrossroads[neighbourIndex][4] !== consts.players[player] &&
+          coloredCrossroads[neighbourIndex][5] !== consts.players[player] &&
+          coloredCrossroads[
+            utils.FindRoadNeighbour(
+              consts.fieldCoordinates[neighbourIndex],
+              consts.roadCoordinates[3]
+            )
+          ][0] !== consts.players[player] &&
+          coloredCrossroads[
+            utils.FindRoadNeighbour(
+              consts.fieldCoordinates[neighbourIndex],
+              consts.roadCoordinates[5]
+            )
+          ][3] !== consts.players[player]
+        )
+          hasNeighbourCrossroads = false;
+        break;
+      case 2:
+        if (
           utils.FindRoadNeighbour(
             consts.fieldCoordinates[neighbourIndex],
             consts.roadCoordinates[0]
-          )
-        ][4] !== consts.players[player] &&
-        coloredCrossroads[
+          ) !== -1 &&
           utils.FindRoadNeighbour(
             consts.fieldCoordinates[neighbourIndex],
             consts.roadCoordinates[4]
-          )
-        ][1] !== consts.players[player]
-      )
-        hasNeighbourCrossroads = false;
-      break;
-    case 3:
-      if (
-        utils.FindRoadNeighbour(
-          consts.fieldCoordinates[neighbourIndex],
-          consts.roadCoordinates[1]
-        ) !== -1 &&
-        utils.FindRoadNeighbour(
-          consts.fieldCoordinates[neighbourIndex],
-          consts.roadCoordinates[5]
-        ) !== -1 &&
-        coloredCrossroads[fieldNumber][3] !== consts.players[player] &&
-        coloredCrossroads[fieldNumber][4] !== consts.players[player] &&
-        coloredCrossroads[neighbourIndex][0] !== consts.players[player] &&
-        coloredCrossroads[neighbourIndex][1] !== consts.players[player] &&
-        coloredCrossroads[
+          ) !== -1 &&
+          coloredCrossroads[fieldNumber][2] !== consts.players[player] &&
+          coloredCrossroads[fieldNumber][3] !== consts.players[player] &&
+          coloredCrossroads[neighbourIndex][0] !== consts.players[player] &&
+          coloredCrossroads[neighbourIndex][5] !== consts.players[player] &&
+          coloredCrossroads[
+            utils.FindRoadNeighbour(
+              consts.fieldCoordinates[neighbourIndex],
+              consts.roadCoordinates[0]
+            )
+          ][4] !== consts.players[player] &&
+          coloredCrossroads[
+            utils.FindRoadNeighbour(
+              consts.fieldCoordinates[neighbourIndex],
+              consts.roadCoordinates[4]
+            )
+          ][1] !== consts.players[player]
+        )
+          hasNeighbourCrossroads = false;
+        break;
+      case 3:
+        if (
           utils.FindRoadNeighbour(
             consts.fieldCoordinates[neighbourIndex],
             consts.roadCoordinates[1]
-          )
-        ][5] !== consts.players[player] &&
-        coloredCrossroads[
+          ) !== -1 &&
           utils.FindRoadNeighbour(
             consts.fieldCoordinates[neighbourIndex],
             consts.roadCoordinates[5]
-          )
-        ][2] !== consts.players[player]
-      )
-        hasNeighbourCrossroads = false;
-      break;
-    case 4:
-      if (
-        utils.FindRoadNeighbour(
-          consts.fieldCoordinates[neighbourIndex],
-          consts.roadCoordinates[0]
-        ) !== -1 &&
-        utils.FindRoadNeighbour(
-          consts.fieldCoordinates[neighbourIndex],
-          consts.roadCoordinates[2]
-        ) !== -1 &&
-        coloredCrossroads[fieldNumber][4] !== consts.players[player] &&
-        coloredCrossroads[fieldNumber][5] !== consts.players[player] &&
-        coloredCrossroads[neighbourIndex][1] !== consts.players[player] &&
-        coloredCrossroads[neighbourIndex][2] !== consts.players[player] &&
-        coloredCrossroads[
+          ) !== -1 &&
+          coloredCrossroads[fieldNumber][3] !== consts.players[player] &&
+          coloredCrossroads[fieldNumber][4] !== consts.players[player] &&
+          coloredCrossroads[neighbourIndex][0] !== consts.players[player] &&
+          coloredCrossroads[neighbourIndex][1] !== consts.players[player] &&
+          coloredCrossroads[
+            utils.FindRoadNeighbour(
+              consts.fieldCoordinates[neighbourIndex],
+              consts.roadCoordinates[1]
+            )
+          ][5] !== consts.players[player] &&
+          coloredCrossroads[
+            utils.FindRoadNeighbour(
+              consts.fieldCoordinates[neighbourIndex],
+              consts.roadCoordinates[5]
+            )
+          ][2] !== consts.players[player]
+        )
+          hasNeighbourCrossroads = false;
+        break;
+      case 4:
+        if (
           utils.FindRoadNeighbour(
             consts.fieldCoordinates[neighbourIndex],
             consts.roadCoordinates[0]
-          )
-        ][3] !== consts.players[player] &&
-        coloredCrossroads[
+          ) !== -1 &&
           utils.FindRoadNeighbour(
             consts.fieldCoordinates[neighbourIndex],
             consts.roadCoordinates[2]
-          )
-        ][0] !== consts.players[player]
-      )
-      {
-        hasNeighbourCrossroads = false;
-      }
-      break;
-    case 5:
-      if (
-        utils.FindRoadNeighbour(
-          consts.fieldCoordinates[neighbourIndex],
-          consts.roadCoordinates[1]
-        ) !== -1 &&
-        utils.FindRoadNeighbour(
-          consts.fieldCoordinates[neighbourIndex],
-          consts.roadCoordinates[3]
-        ) !== -1 &&
-        coloredCrossroads[fieldNumber][0] !== consts.players[player] &&
-        coloredCrossroads[fieldNumber][5] !== consts.players[player] &&
-        coloredCrossroads[neighbourIndex][2] !== consts.players[player] &&
-        coloredCrossroads[neighbourIndex][3] !== consts.players[player] &&
-        coloredCrossroads[
+          ) !== -1 &&
+          coloredCrossroads[fieldNumber][4] !== consts.players[player] &&
+          coloredCrossroads[fieldNumber][5] !== consts.players[player] &&
+          coloredCrossroads[neighbourIndex][1] !== consts.players[player] &&
+          coloredCrossroads[neighbourIndex][2] !== consts.players[player] &&
+          coloredCrossroads[
+            utils.FindRoadNeighbour(
+              consts.fieldCoordinates[neighbourIndex],
+              consts.roadCoordinates[0]
+            )
+          ][3] !== consts.players[player] &&
+          coloredCrossroads[
+            utils.FindRoadNeighbour(
+              consts.fieldCoordinates[neighbourIndex],
+              consts.roadCoordinates[2]
+            )
+          ][0] !== consts.players[player]
+        ) {
+          hasNeighbourCrossroads = false;
+        }
+        break;
+      case 5:
+        if (
           utils.FindRoadNeighbour(
             consts.fieldCoordinates[neighbourIndex],
             consts.roadCoordinates[1]
-          )
-        ][4] !== consts.players[player] &&
-        coloredCrossroads[
+          ) !== -1 &&
           utils.FindRoadNeighbour(
             consts.fieldCoordinates[neighbourIndex],
             consts.roadCoordinates[3]
-          )
-        ][1] !== consts.players[player]
-      )
-        hasNeighbourCrossroads = false;
-      break;
-    default:
-      break;
+          ) !== -1 &&
+          coloredCrossroads[fieldNumber][0] !== consts.players[player] &&
+          coloredCrossroads[fieldNumber][5] !== consts.players[player] &&
+          coloredCrossroads[neighbourIndex][2] !== consts.players[player] &&
+          coloredCrossroads[neighbourIndex][3] !== consts.players[player] &&
+          coloredCrossroads[
+            utils.FindRoadNeighbour(
+              consts.fieldCoordinates[neighbourIndex],
+              consts.roadCoordinates[1]
+            )
+          ][4] !== consts.players[player] &&
+          coloredCrossroads[
+            utils.FindRoadNeighbour(
+              consts.fieldCoordinates[neighbourIndex],
+              consts.roadCoordinates[3]
+            )
+          ][1] !== consts.players[player]
+        )
+          hasNeighbourCrossroads = false;
+        break;
+      default:
+        break;
+    }
   }
 
-
   if (
-    (((resources[player][0] >= 1 && resources[player][4] >= 1) ||
+    ((resources[player][0] >= 1 && resources[player][4] >= 1) ||
       (setup[0] && roads[player] < 1) ||
-      (!setup[0] && setup[1] && roads[player] < 2))) &&
+      (!setup[0] && setup[1] && roads[player] < 2)) &&
     (hasNeighbourCrossroads || hasNeighbourRoads)
   ) {
     coloredRoads[fieldNumber][roadNumber] = consts.players[player];
