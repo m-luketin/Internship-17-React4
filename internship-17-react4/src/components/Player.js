@@ -20,7 +20,10 @@ const Player = props => {
             props.resourceState.resources,
             props.boardState.fieldTerrains,
             props.boardState.fieldNumbers,
-            props.boardState.coloredCrossroads
+            props.boardState.coloredCrossroads,
+            props.playerState.settlements,
+            props.playerState.cities,
+            props.playerState.playerNames
           )
         }
         style={{ backgroundColor: consts.players[props.playerState.player] }}

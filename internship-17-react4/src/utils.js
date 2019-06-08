@@ -64,9 +64,21 @@ function AreNeighbours(firstCoordinates, secondCoordinates) {
 function FindRoadNeighbour(fieldCoordinates, roadCoordinates) {
   let neighbourCoordinates = [];
   for (let i = 0; i < 3; i++) {
-    neighbourCoordinates[i] = fieldCoordinates[i] + roadCoordinates;
+    neighbourCoordinates[i] = fieldCoordinates[i] + roadCoordinates[i];
   }
-  return neighbourCoordinates;
+
+
+  let neighbourIndex = -1;
+  for (let j = 0; j < 19; j++) {
+      if (
+        consts.fieldCoordinates[j][0] === neighbourCoordinates[0] &&
+        consts.fieldCoordinates[j][1]=== neighbourCoordinates[1] &&
+        consts.fieldCoordinates[j][2]=== neighbourCoordinates[2]
+      )
+        neighbourIndex = j;
+    
+  }
+  return neighbourIndex;
 }
 
 function FindCrossroadNeighbours(fieldCoordinates, crossroadCoordinates) {

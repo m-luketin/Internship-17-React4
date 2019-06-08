@@ -18,7 +18,20 @@ const initialState = {
 };
 
 // action creators
-export const handlePlayers = (player, setup, resources, fieldTerrains, fieldChitNumbers, coloredCrossroads) => dispatchEvent => {
+export const handlePlayers = (
+  player,
+  setup,
+  resources,
+  fieldTerrains,
+  fieldChitNumbers,
+  coloredCrossroads,
+  settlements,
+  cities,
+  playerNames
+) => dispatchEvent => {
+  if (settlements[player] + cities[player] * 2 >= 10)
+    window.alert(`${playerNames[player]} wins!`);
+
   if (player === 0 && !setup[0]) setup[1] = false;
 
   let diceroll;
@@ -33,64 +46,63 @@ export const handlePlayers = (player, setup, resources, fieldTerrains, fieldChit
     setup[0] = false;
   }
 
-  let coloredCrossroadIndexes = [[], [], [] , []];
+  let coloredCrossroadIndexes = [[], [], [], []];
 
-  for(let j = 0; j < 4; j++)
-  {
-    for(let i = 0; i < coloredCrossroads.length; i++)
-    {
-      for(let k = 0; k < coloredCrossroads[i].length; k++)
-      {
-        if(coloredCrossroads[i][k] === consts.players[j]){
-          coloredCrossroadIndexes[j].push([i,k]);
+  for (let j = 0; j < 4; j++) {
+    for (let i = 0; i < coloredCrossroads.length; i++) {
+      for (let k = 0; k < coloredCrossroads[i].length; k++) {
+        if (coloredCrossroads[i][k] === consts.players[j]) {
+          coloredCrossroadIndexes[j].push([i, k]);
         }
       }
     }
-    
+
     let crossroadFieldCoordinates = [];
     let coloredCrossroadCoordinates = [];
     coloredCrossroadIndexes[j].forEach(coloredCrossroadIndex => {
-      crossroadFieldCoordinates.push(consts.fieldCoordinates[coloredCrossroadIndex[0]]);
-      coloredCrossroadCoordinates.push(consts.crossroadCoordinates[coloredCrossroadIndex[1]]);
+      crossroadFieldCoordinates.push(
+        consts.fieldCoordinates[coloredCrossroadIndex[0]]
+      );
+      coloredCrossroadCoordinates.push(
+        consts.crossroadCoordinates[coloredCrossroadIndex[1]]
+      );
     });
 
+    let neighbourFieldIndexes = [];
 
-    let neighbourFieldIndexes =[];
-    
-    for(let i = 0; i < crossroadFieldCoordinates.length; i++)
-    {
-      neighbourFieldIndexes.push(utils.FindCrossroadNeighbours(
-        crossroadFieldCoordinates[i],
-        coloredCrossroadCoordinates[i]
-      ));
+    for (let i = 0; i < crossroadFieldCoordinates.length; i++) {
+      neighbourFieldIndexes.push(
+        utils.FindCrossroadNeighbours(
+          crossroadFieldCoordinates[i],
+          coloredCrossroadCoordinates[i]
+        )
+      );
     }
-        
+
     let winningFieldIndexes = [];
-    
-    for(let i = 0; i < fieldChitNumbers.length; i++)
-    {
-      for(let j = 0; j < neighbourFieldIndexes.length; j ++)
-      {
-        for(let k = 0; k < 3; k++)
-        {
-          if(fieldChitNumbers[i] === diceroll && i === neighbourFieldIndexes[j][k])
-          {
+
+    for (let i = 0; i < fieldChitNumbers.length; i++) {
+      for (let j = 0; j < neighbourFieldIndexes.length; j++) {
+        for (let k = 0; k < 3; k++) {
+          if (
+            fieldChitNumbers[i] === diceroll &&
+            i === neighbourFieldIndexes[j][k]
+          ) {
             winningFieldIndexes.push(i);
           }
-
         }
       }
     }
-    
+
     let winningFieldTerrains = [];
-    
+
     winningFieldIndexes.forEach(winningFieldIndex => {
       winningFieldTerrains.push(fieldTerrains[winningFieldIndex]);
     });
-    
+
     console.log(resources);
-    
-    winningFieldTerrains.forEach( winningFieldTerrain => {
+
+    winningFieldTerrains.forEach(winningFieldTerrain => {
       switch (winningFieldTerrain) {
         case "Forest":
           resources[j][0]++;

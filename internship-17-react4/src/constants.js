@@ -134,11 +134,20 @@ const fieldCoordinates = [
 
 const crossroadCoordinates = [
   [0, -1, 0],
-    [1, 0, 0],
-    [0, 0, -1],
-    [0, 1, 0],
-    [-1, 0, 0],
-    [0, 0, 1]
+  [1, 0, 0],
+  [0, 0, -1],
+  [0, 1, 0],
+  [-1, 0, 0],
+  [0, 0, 1]
+];
+
+const roadCoordinates = [
+  [1, -1, 0],
+  [1, 0, -1],
+  [0, 1, -1],
+  [-1, 1, 0],
+  [-1, 0, 1],
+  [0, -1, 1]
 ];
 
 export const consts = {
@@ -150,5 +159,6 @@ export const consts = {
   roads,
   resources,
   fieldCoordinates,
-  crossroadCoordinates
+  crossroadCoordinates,
+  roadCoordinates
 };
