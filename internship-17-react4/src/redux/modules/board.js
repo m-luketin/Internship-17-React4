@@ -30,9 +30,7 @@ export const handleCrossroad = (
 ) => dispatchEvent => {
   if (
     coloredCrossroads[fieldNumber][crossroadNumber] ===
-    consts.players[
-      player
-    ] &&
+      consts.players[player] &&
     (resources[player][2] >= 3 && resources[player][1] >= 2)
   ) {
     crossroadCities[fieldNumber][crossroadNumber] = true;
@@ -42,8 +40,7 @@ export const handleCrossroad = (
       resources[player][1] -= 2;
     }
   }
-  let newCities = Object.assign({}, crossroadCities);
-  let isMoveValid = true;
+  let hasNeighbourCrossroads = true;
 
   if (crossroadNumber === 0 || crossroadNumber === 2 || crossroadNumber === 4) {
     for (let i = 0; i < 6; i++) {
@@ -51,7 +48,7 @@ export const handleCrossroad = (
         coloredCrossroads[fieldNumber][i] !== "white" &&
         coloredCrossroads[fieldNumber][i] !== consts.players[player]
       ) {
-        isMoveValid = false;
+        hasNeighbourCrossroads = false;
       } else if (
         utils.FindRoadNeighbour(
           consts.fieldCoordinates[fieldNumber],
@@ -70,7 +67,7 @@ export const handleCrossroad = (
           )
         ][i] !== consts.players[player]
       ) {
-        isMoveValid = false;
+        hasNeighbourCrossroads = false;
       } else if (
         utils.FindRoadNeighbour(
           consts.fieldCoordinates[fieldNumber],
@@ -89,7 +86,7 @@ export const handleCrossroad = (
           )
         ][0] !== consts.players[player]
       ) {
-        isMoveValid = false;
+        hasNeighbourCrossroads = false;
       } else if (
         utils.FindRoadNeighbour(
           consts.fieldCoordinates[fieldNumber],
@@ -108,7 +105,7 @@ export const handleCrossroad = (
           )
         ][0] !== consts.players[player]
       ) {
-        isMoveValid = false;
+        hasNeighbourCrossroads = false;
       } else if (
         utils.FindRoadNeighbour(
           consts.fieldCoordinates[fieldNumber],
@@ -127,7 +124,7 @@ export const handleCrossroad = (
           )
         ][i] !== consts.players[player]
       ) {
-        isMoveValid = false;
+        hasNeighbourCrossroads = false;
       } else if (
         utils.FindRoadNeighbour(
           consts.fieldCoordinates[fieldNumber],
@@ -146,7 +143,7 @@ export const handleCrossroad = (
           )
         ][i] !== consts.players[player]
       ) {
-        isMoveValid = false;
+        hasNeighbourCrossroads = false;
       } else if (
         utils.FindRoadNeighbour(
           consts.fieldCoordinates[fieldNumber],
@@ -165,7 +162,7 @@ export const handleCrossroad = (
           )
         ][i] !== consts.players[player]
       ) {
-        isMoveValid = false;
+        hasNeighbourCrossroads = false;
       } else if (
         utils.FindRoadNeighbour(
           consts.fieldCoordinates[fieldNumber],
@@ -203,7 +200,7 @@ export const handleCrossroad = (
           )
         ][5] !== consts.players[player]
       ) {
-        isMoveValid = false;
+        hasNeighbourCrossroads = false;
       }
     }
   } else if (
@@ -216,7 +213,7 @@ export const handleCrossroad = (
         coloredCrossroads[fieldNumber][i] !== "white" &&
         coloredCrossroads[fieldNumber][i] !== consts.players[player]
       ) {
-        isMoveValid = false;
+        hasNeighbourCrossroads = false;
       } else if (
         utils.FindRoadNeighbour(
           consts.fieldCoordinates[fieldNumber],
@@ -235,7 +232,7 @@ export const handleCrossroad = (
           )
         ][i] !== consts.players[player]
       ) {
-        isMoveValid = false;
+        hasNeighbourCrossroads = false;
       } else if (
         utils.FindRoadNeighbour(
           consts.fieldCoordinates[fieldNumber],
@@ -254,7 +251,7 @@ export const handleCrossroad = (
           )
         ][i] !== consts.players[player]
       ) {
-        isMoveValid = false;
+        hasNeighbourCrossroads = false;
       } else if (
         utils.FindRoadNeighbour(
           consts.fieldCoordinates[fieldNumber],
@@ -273,7 +270,7 @@ export const handleCrossroad = (
           )
         ][i] !== consts.players[player]
       ) {
-        isMoveValid = false;
+        hasNeighbourCrossroads = false;
       } else if (
         utils.FindRoadNeighbour(
           consts.fieldCoordinates[fieldNumber],
@@ -292,7 +289,7 @@ export const handleCrossroad = (
           )
         ][i] !== consts.players[player]
       ) {
-        isMoveValid = false;
+        hasNeighbourCrossroads = false;
       } else if (
         utils.FindRoadNeighbour(
           consts.fieldCoordinates[fieldNumber],
@@ -311,7 +308,7 @@ export const handleCrossroad = (
           )
         ][5] !== consts.players[player]
       ) {
-        isMoveValid = false;
+        hasNeighbourCrossroads = false;
       } else if (
         utils.FindRoadNeighbour(
           consts.fieldCoordinates[fieldNumber],
@@ -330,7 +327,7 @@ export const handleCrossroad = (
           )
         ][5] !== consts.players[player]
       ) {
-        isMoveValid = false;
+        hasNeighbourCrossroads = false;
       } else if (
         utils.FindRoadNeighbour(
           consts.fieldCoordinates[fieldNumber],
@@ -368,16 +365,16 @@ export const handleCrossroad = (
           )
         ][0] !== consts.players[player]
       ) {
-        isMoveValid = false;
+        hasNeighbourCrossroads = false;
       }
     }
   }
 
   if (
-    coloredCrossroads[fieldNumber][crossroadNumber] === "white" ||
-    coloredCrossroads[fieldNumber][crossroadNumber] ===
-      consts.players[player] ||
-    isMoveValid
+    (coloredCrossroads[fieldNumber][crossroadNumber] === "white" ||
+      coloredCrossroads[fieldNumber][crossroadNumber] ===
+        consts.players[player]) &&
+    hasNeighbourCrossroads
   ) {
     if (
       (resources[player][0] >= 1 &&
@@ -415,14 +412,112 @@ export const handleRoad = (
   roads,
   coloredCrossroads
 ) => dispatchEvent => {
-  let isMoveValid = true;
 
+  let hasNeighbourRoads = true;
+
+  let neighbourIndex = utils.FindRoadNeighbour(
+    consts.fieldCoordinates[fieldNumber],
+    consts.roadCoordinates[roadNumber]
+  );
+
+  console.log(roadNumber);
+
+  switch (roadNumber) {
+    case 0:
+      if (
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[2])][4] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[2])][5] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[4])][1] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[4])][2] !== consts.players[player] &&
+        coloredRoads[neighbourIndex][2] !== consts.players[player] &&
+        coloredRoads[neighbourIndex][4] !== consts.players[player] &&
+        coloredRoads[fieldNumber][1] !== consts.players[player] &&
+        coloredRoads[fieldNumber][5] !== consts.players[player] 
+      ) {
+        hasNeighbourRoads = false;
+      }
+      break;
+    case 1:
+      if (
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[3])][0] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[3])][5] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[5])][2] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[5])][3] !== consts.players[player] &&
+        coloredRoads[neighbourIndex][3] !== consts.players[player] &&
+        coloredRoads[neighbourIndex][5] !== consts.players[player] &&
+        coloredRoads[fieldNumber][0] !== consts.players[player] &&
+        coloredRoads[fieldNumber][2] !== consts.players[player] 
+      ) {
+        hasNeighbourRoads = false;
+      }
+      break;
+    case 2:
+      if (
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[0])][3] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[0])][4] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[4])][0] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[4])][1] !== consts.players[player] &&
+        coloredRoads[neighbourIndex][0] !== consts.players[player] &&
+        coloredRoads[neighbourIndex][4] !== consts.players[player] &&
+        coloredRoads[fieldNumber][1] !== consts.players[player] &&
+        coloredRoads[fieldNumber][3] !== consts.players[player] 
+      ) {
+        hasNeighbourRoads = false;
+      }
+      break;
+    case 3:
+      if (
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[1])][4] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[1])][5] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[5])][1] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[5])][2] !== consts.players[player] &&
+        coloredRoads[neighbourIndex][1] !== consts.players[player] &&
+        coloredRoads[neighbourIndex][5] !== consts.players[player] &&
+        coloredRoads[fieldNumber][2] !== consts.players[player] &&
+        coloredRoads[fieldNumber][4] !== consts.players[player] 
+      ) {
+        hasNeighbourRoads = false;
+      }
+      break;
+    case 4:
+      if (
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[0])][2] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[0])][3] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[2])][0] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[2])][5] !== consts.players[player] &&
+        coloredRoads[neighbourIndex][0] !== consts.players[player] &&
+        coloredRoads[neighbourIndex][2] !== consts.players[player] &&
+        coloredRoads[fieldNumber][3] !== consts.players[player] &&
+        coloredRoads[fieldNumber][5] !== consts.players[player] 
+      ) {
+        hasNeighbourRoads = false;
+      }
+      break;
+    case 5:
+      if (
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[1])][3] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[1])][5] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[3])][0] !== consts.players[player] &&
+        coloredRoads[utils.FindRoadNeighbour(consts.fieldCoordinates[neighbourIndex], consts.roadCoordinates[3])][2] !== consts.players[player] &&
+        coloredRoads[neighbourIndex][1] !== consts.players[player] &&
+        coloredRoads[neighbourIndex][3] !== consts.players[player] &&
+        coloredRoads[fieldNumber][0] !== consts.players[player] &&
+        coloredRoads[fieldNumber][4] !== consts.players[player] 
+      ) {
+        hasNeighbourRoads = false;
+      }
+      break;
+    default:
+      break;
+  }
+
+  let hasNeighbourCrossroads = true;
   if (
-    coloredCrossroads[fieldNumber][roadNumber % 6] !== consts.players[player] &&
+    coloredCrossroads[fieldNumber][roadNumber] !== consts.players[player] &&
     coloredCrossroads[fieldNumber][(roadNumber + 1) % 6] !==
       consts.players[player]
   ) {
-    isMoveValid = false;
+    hasNeighbourCrossroads = false;
 
     switch (roadNumber) {
       case 0:
@@ -434,21 +529,21 @@ export const handleRoad = (
             )
           ][5] === consts.players[player]
         )
-          isMoveValid = true;
+          hasNeighbourCrossroads = true;
         break;
       case 1:
         if (
           coloredCrossroads[fieldNumber][1] === consts.players[player] ||
           coloredCrossroads[fieldNumber][2] === consts.players[player]
         )
-          isMoveValid = true;
+          hasNeighbourCrossroads = true;
         break;
       case 2:
         if (
           coloredCrossroads[fieldNumber][2] === consts.players[player] ||
           coloredCrossroads[fieldNumber][3] === consts.players[player]
         )
-          isMoveValid = true;
+          hasNeighbourCrossroads = true;
         break;
       case 3:
         if (
@@ -459,7 +554,7 @@ export const handleRoad = (
             )
           ][5] === consts.players[player]
         )
-          isMoveValid = true;
+          hasNeighbourCrossroads = true;
         break;
       case 4:
         if (
@@ -470,14 +565,14 @@ export const handleRoad = (
             )
           ][0] === consts.players[player]
         )
-          isMoveValid = true;
+          hasNeighbourCrossroads = true;
         break;
       case 5:
         if (
           coloredCrossroads[fieldNumber][2] === consts.players[player] ||
           coloredCrossroads[fieldNumber][3] === consts.players[player]
         )
-          isMoveValid = true;
+          hasNeighbourCrossroads = true;
         break;
       default:
         break;
@@ -488,7 +583,7 @@ export const handleRoad = (
     ((resources[player][0] >= 1 && resources[player][4] >= 1) ||
       (setup[0] && roads[player] < 1) ||
       (!setup[0] && setup[1] && roads[player] < 2)) &&
-    isMoveValid
+    (hasNeighbourCrossroads || hasNeighbourRoads)
   ) {
     coloredRoads[fieldNumber][roadNumber] = consts.players[player];
 
