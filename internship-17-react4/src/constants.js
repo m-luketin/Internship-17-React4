@@ -74,6 +74,35 @@ for (let i = 0; i < 19; i++) {
 }
 const crossroads = tmpCrossroads;
 
+let tmpCities = [
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  [],
+  []
+];
+
+for (let i = 0; i < 19; i++) {
+  for (let j = 0; j < 6; j++) {
+    tmpCrossroads[i].push(false);
+  }
+}
+const cities = tmpCities;
+
 let tmpRoads = [
   [],
   [],
@@ -160,5 +189,6 @@ export const consts = {
   resources,
   fieldCoordinates,
   crossroadCoordinates,
-  roadCoordinates
+  roadCoordinates,
+  cities
 };

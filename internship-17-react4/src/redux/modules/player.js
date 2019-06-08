@@ -29,7 +29,7 @@ export const handlePlayers = (
   cities,
   playerNames
 ) => dispatchEvent => {
-  if (settlements[player] + cities[player] * 2 >= 10)
+  if (settlements[player] + cities[player] >= 10)
     window.alert(`${playerNames[player]} wins!`);
 
   if (player === 0 && !setup[0]) setup[1] = false;
@@ -99,8 +99,6 @@ export const handlePlayers = (
     winningFieldIndexes.forEach(winningFieldIndex => {
       winningFieldTerrains.push(fieldTerrains[winningFieldIndex]);
     });
-
-    console.log(resources);
 
     winningFieldTerrains.forEach(winningFieldTerrain => {
       switch (winningFieldTerrain) {

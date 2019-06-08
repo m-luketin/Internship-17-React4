@@ -90,13 +90,13 @@ const Legend = () => {
         <div className="legend-build">
           <span>Settlement = 1 Lumber </span>
           <div className="build-container">
-            <span>+ 1 Brick</span>
+            <span>+ 1 Grain</span>
           </div>
           <div className="build-container">
             <span>+ 1 Wool</span>
           </div>
           <div className="build-container">
-            <span>+ 1 Grain</span>
+            <span>+ 1 Brick</span>
           </div>
         </div>
         <div className="legend-build">

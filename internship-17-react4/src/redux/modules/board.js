@@ -1,11 +1,9 @@
 import { utils } from "../../utils";
 import { consts } from "../../constants";
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 
 // action types
 const HANDLE_ROAD = "HANDLE_ROAD";
 const HANDLE_CROSSROAD = "HANDLE_CROSSROAD";
-const HANDLE_SETUP = "HANDLE_SETUP";
 
 // initial state
 let fields = utils.Shuffle(consts.fieldTerrains);
@@ -14,7 +12,8 @@ const initialState = {
   fieldTerrains: fields,
   fieldNumbers: numbers,
   coloredCrossroads: consts.crossroads,
-  coloredRoads: consts.roads
+  coloredRoads: consts.roads,
+  crossroadCities: consts.cities
 };
 
 // action creators
@@ -25,14 +24,32 @@ export const handleCrossroad = (
   player,
   setup,
   resources,
-  settlements
+  settlements,
+  crossroadCities,
+  cities
 ) => dispatchEvent => {
-  console.log("FieldNumber:", fieldNumber);
+  if (
+    coloredCrossroads[fieldNumber][crossroadNumber] ===
+    consts.players[
+      player
+    ] &&
+    (resources[player][2] >= 3 && resources[player][1] >= 2)
+  ) {
+    crossroadCities[fieldNumber][crossroadNumber] = true;
+    cities[player]++;
+    if (!setup[0] && !setup[1]) {
+      resources[player][2] -= 3;
+      resources[player][1] -= 2;
+    }
+  }
   let isMoveValid = true;
 
   if (crossroadNumber === 0 || crossroadNumber === 2 || crossroadNumber === 4) {
     for (let i = 0; i < 6; i++) {
-      if (coloredCrossroads[fieldNumber][i] !== "white" && coloredCrossroads[fieldNumber][i] !== consts.players[player]) {
+      if (
+        coloredCrossroads[fieldNumber][i] !== "white" &&
+        coloredCrossroads[fieldNumber][i] !== consts.players[player]
+      ) {
         isMoveValid = false;
       } else if (
         utils.FindRoadNeighbour(
@@ -44,7 +61,8 @@ export const handleCrossroad = (
             consts.fieldCoordinates[fieldNumber],
             consts.roadCoordinates[5]
           )
-        ][i] !== "white" && coloredCrossroads[
+        ][i] !== "white" &&
+        coloredCrossroads[
           utils.FindRoadNeighbour(
             consts.fieldCoordinates[fieldNumber],
             consts.roadCoordinates[5]
@@ -171,7 +189,7 @@ export const handleCrossroad = (
             ],
             consts.roadCoordinates[1]
           )
-        ][5] !== "white"&&
+        ][5] !== "white" &&
         coloredCrossroads[
           utils.FindRoadNeighbour(
             consts.fieldCoordinates[
@@ -193,7 +211,10 @@ export const handleCrossroad = (
     crossroadNumber === 5
   ) {
     for (let i = 0; i < 6; i++) {
-      if (coloredCrossroads[fieldNumber][i] !== "white" && coloredCrossroads[fieldNumber][i] !== consts.players[player]) {
+      if (
+        coloredCrossroads[fieldNumber][i] !== "white" &&
+        coloredCrossroads[fieldNumber][i] !== consts.players[player]
+      ) {
         isMoveValid = false;
       } else if (
         utils.FindRoadNeighbour(
@@ -378,7 +399,7 @@ export const handleCrossroad = (
   }
   dispatchEvent({
     type: HANDLE_CROSSROAD,
-    payload: { coloredCrossroads, settlements, resources }
+    payload: { coloredCrossroads, settlements, resources, crossroadCities }
   });
 };
 
@@ -410,12 +431,7 @@ export const handleRoad = (
   });
 };
 
-export const handleSetup = () => dispatchEvent => {
-  dispatchEvent({
-    type: HANDLE_SETUP,
-    payload: {}
-  });
-};
+
 
 // reducer
 const reducer = (state = initialState, action) => {
@@ -431,11 +447,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         coloredCrossroads: action.payload.coloredCrossroads,
         settlements: action.payload.settlements,
-        resources: action.payload.resources
-      };
-    case HANDLE_SETUP:
-      return {
-        ...state
+        resources: action.payload.resources,
+        crossroadCities: action.payload.crossroadCities
       };
     default:
       return { ...state };

@@ -6,7 +6,15 @@ const Crossroad = props => {
   return (
     <div
       className={props.class}
-      style={{ backgroundColor: props.color }}
+      style={Object.assign(
+        {},
+        { backgroundColor: props.color },
+        {
+          ...props.cityState[props.fieldNumber][props.crossroadNumber]
+            ? { borderRadius: "0" }
+            : { borderRadius: "50%" }
+        }
+      )}
       onClick={() =>
         props.handleCrossroad(
           props.fieldNumber,
@@ -16,9 +24,8 @@ const Crossroad = props => {
           props.player.setup,
           props.resources.resources,
           props.player.settlements,
-          props.coordinates,
-          props.fieldCoordinates,
-          props.fields
+          props.cityState,
+          props.player.cities
         )
       }
     />
@@ -29,7 +36,8 @@ const mapStateToProps = state => ({
   coloredCrossroads: state.board.coloredCrossroads,
   player: state.player,
   fields: state.board.fieldTerrains,
-  resources: state.resources
+  resources: state.resources,
+  cityState: state.board.crossroadCities
 });
 
 const mapDispatchToProps = {
